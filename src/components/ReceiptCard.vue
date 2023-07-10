@@ -4,7 +4,6 @@ import HeartOutline from "vue-material-design-icons/HeartOutline.vue";
 import HeartFilled from "vue-material-design-icons/Heart.vue";
 import Router from "@/router";
 import {useMeal} from "@/stores/meals";
-import {ref} from "vue";
 const useMealStore = useMeal();
 defineProps<{
   mealInfo: Meal

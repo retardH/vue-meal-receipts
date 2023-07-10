@@ -10,6 +10,3 @@ import 'vue-loading-overlay/dist/css/index.css';
   <RouterView />
 </template>
 
-<style scoped>
-
-</style>

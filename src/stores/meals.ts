@@ -2,8 +2,6 @@ import {defineStore} from "pinia";
 import type {Meal, MealCategory} from "@/types/types";
 import {domainUrl, allCategoriesUrl} from "@/api"
 import {useLoadingState} from "@/stores/loading";
-import Loading, {useLoading} from 'vue-loading-overlay';
-
 export const useMeal = defineStore("meal", {
     state: () => ({
         searchedMeals: <Meal[]>[],

@@ -39,6 +39,5 @@ onMounted(() => {
         </div>
       </div>
     </div>
-<!--    <div v-if="useLoadingStore.isLoading" class="w-screen justify-center items-center text-5xl">...Loading</div>-->
   </MainContainer>
 </template>

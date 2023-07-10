@@ -1,5 +1,4 @@
 <script setup lang="ts">
-//@ts-ignore
 import MainContainer from "@/components/MainContainer.vue";
 import {useMeal} from "@/stores/meals";
 import {storeToRefs} from "pinia";
