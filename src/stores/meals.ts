@@ -32,6 +32,7 @@ export const useMeal = defineStore("meal", {
             const response = await fetch(`${domainUrl}/search.php?s=${this.searchMeal}`);
             const data = await response.json();
             this.searchedMeals = data.meals;
+            this.searchMeal = "";
         },
         async getMealDetails(id: number) {
             const useLoadingStore = useLoadingState();

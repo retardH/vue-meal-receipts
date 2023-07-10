@@ -14,7 +14,7 @@ import RightArrow from "vue-material-design-icons/ArrowRightThin.vue"
         </p>
         <button class="bg-rose-700 text-white py-3 px-4 flex items-center gap-2">
           <router-link to="/meals">
-            Let's get started!
+            Let's find meals!
           </router-link>
           <RightArrow/>
         </button>
