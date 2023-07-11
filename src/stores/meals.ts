@@ -10,7 +10,7 @@ export const useMeal = defineStore("meal", {
         searchMeal: "",
         mealDetails: <Meal>{},
         categories: <MealCategory[]>[],
-        selectedCountry: "",
+        selectedCountry: "American",
         allAreas: [] as {strArea: string}[],
         resultText: "",
     }),
@@ -27,34 +27,43 @@ export const useMeal = defineStore("meal", {
         favoriteMealsCount(state: any) {
             return state.favoriteMeals.length;
         },
+        carouselMeals(state: any) {
+            return state.searchedMeals.slice(0,10);
+        }
     },
     actions: {
         async getAllInfo() {
             const useLoadingStore = useLoadingState();
-            useLoadingStore.isLoading = true;
-            let loader = useLoadingStore.vueLoading.show();
-            if(this.searchedMeals.length !== 0) {
-                this.searchedMeals = [];
+            let loader = useLoadingStore.initializeLoading();
+            this.searchedMeals = [];
+            try {
+                let response;
+                if(this.searchMeal.length === 1) {
+                    response = await fetch(`${domainUrl}/search.php?f=${this.searchMeal.toLowerCase()}`);
+                } else {
+                    response = await fetch(`${domainUrl}/search.php?s=${this.searchMeal}`);
+                }
+                const data = await response.json();
+                useLoadingStore.isLoading = false;
+                loader.hide();
+                this.searchedMeals = data.meals;
+                this.resultText = `${this.searchedMeals.length} ${this.searchedMeals.length > 1 ? "Results" : "Result"} found for '${this.searchMeal}'`;
+                console.log(this.resultText);
+                this.searchMeal = "";
+            } catch (error) {
+                console.log(error);
+                this.resultText = `No Result Found!`
             }
-            const response = await fetch(`${domainUrl}/search.php?s=${this.searchMeal}`);
-            const data = await response.json();
-            useLoadingStore.isLoading = false;
-            loader.hide();
-            this.searchedMeals = data.meals;
-            this.resultText = `${this.searchedMeals.length} ${this.searchedMeals.length > 1 ? "Results" : "Result"} found for '${this.searchMeal}'`;
-            console.log(this.resultText);
-            this.searchMeal = "";
         },
         async getAllMealsByCategory(category: string) {
-            if(this.searchedMeals.length !== 0) {
-                this.searchedMeals = [];
-            }
+            this.searchedMeals = [];
             const response = await fetch(`${domainUrl}/filter.php?c=${category}`);
             const data = await response.json();
             if(data.meals) {
                 this.searchedMeals = data.meals;
                 await Router.push('/meals');
             }
+            this.resultText = `CATEGORY ~ ${category}:`;
 
         },
         async getMealDetails(id: number) {
@@ -72,13 +81,10 @@ export const useMeal = defineStore("meal", {
             }
         },
         toggleFavorite(meal: Meal) {
-            console.log(this.favoriteMeals);
             if(!this.isMealFavorite(meal)) {
                 this.favoriteMeals.push(meal);
-                console.log('already ffav');
             } else {
                 this.favoriteMeals = this.favoriteMeals.filter((favMeal: Meal) => favMeal.idMeal !== meal.idMeal);
-                console.log('not fav')
             }
         },
         isMealFavorite(meal: Meal) {
@@ -93,16 +99,13 @@ export const useMeal = defineStore("meal", {
             const useLoadingStore = useLoadingState();
             useLoadingStore.isLoading = true;
             let loader = useLoadingStore.vueLoading.show();
-            console.log('selected', this.selectedCountry);
-            if(this.searchedMeals.length !== 0) {
-                this.searchedMeals = [];
-            }
+            this.searchedMeals = [];
             const response = await fetch(`${domainUrl}/filter.php?a=${this.selectedCountry}`);
             const data = await response.json();
             useLoadingStore.isLoading = false;
             loader.hide();
             this.searchedMeals = data.meals;
-            this.resultText = `${this.selectedCountry} Foods:`
+            this.resultText = `${this.selectedCountry} Foods:`;
             this.selectedCountry = "";
         },
         async getAllList() {

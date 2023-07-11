@@ -4,6 +4,8 @@ import './style.css'
 import Navbar from "@/components/Navbar.vue";
 import 'vue-loading-overlay/dist/css/index.css';
 import UpArrowIcon from "vue-material-design-icons/ChevronUpBox.vue";
+import 'vue3-carousel/dist/carousel.css'
+
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,

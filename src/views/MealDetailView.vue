@@ -31,9 +31,9 @@ onMounted(() => {
             YouTube</a>
         </div>
         <div class="flex flex-col gap-8 w-8/12">
-          <div class="flex gap-2 flex-1 items-start flex-col">
+          <div class="flex gap-1 flex-1 items-start flex-col">
             <p class="text-lg uppercase font-bold text-rose-700">Ingredients: </p>
-            <div class="flex items-center gap-4 flex-wrap">
+            <div class="flex items-center gap-2.5 flex-wrap">
               <p v-for="(ingredient,index) in useMealStore.mealIngredients" :key="index"
                  class="text-sm capitalize border-rose-700 border-2 rounded-3xl py-1 px-4">
                 {{ingredient}}

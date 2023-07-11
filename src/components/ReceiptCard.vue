@@ -12,8 +12,8 @@ defineProps<{
 
 <template>
   <div
-      class="flex flex-col gap-4 max-w-md shadow-lg bg-stone-100 rounded-md px-2 py-4 col-span-12 md:col-span-4 xl:col-span-3 self-center">
-    <img :src="mealInfo.strMealThumb" alt="meal" class="w-full rounded-md">
+      class="flex flex-col gap-4 max-w-md shadow-lg bg-stone-100 rounded-sm px-2 py-4 col-span-12 md:col-span-4 xl:col-span-3 self-center">
+    <img :src="mealInfo.strMealThumb" alt="meal" class="w-full rounded-sm">
     <div class="flex items-center justify-between px-4 text-rose-700">
       <p class="flex-1">
        {{mealInfo.strMeal.length > 24 ? `${mealInfo.strMeal.slice(0,24)}...` : mealInfo.strMeal}}

@@ -14,4 +14,15 @@ export const useLoadingState = defineStore('loading', {
             });
         }
     },
+    actions: {
+        initializeLoading() {
+            this.isLoading = true;
+            return this.vueLoading.show();
+        },
+        stopLoading() {
+            let loader = this.initializeLoading();
+            this.isLoading = false;
+            loader.hide();
+        }
+    }
 })

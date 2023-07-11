@@ -5,7 +5,7 @@ import RightArrow from "vue-material-design-icons/ArrowRightThin.vue"
 
 <template>
     <MainContainer>
-      <div class="flex items-center justify-center flex-col gap-4" style="height: 80vh">
+      <div class="flex items-center justify-center flex-col gap-4" style="height: calc(80vh - 40px)">
         <h4 class="text-7xl text-rose-700 font-bold">
           Welcome from `Shloot~Shloot`
         </h4>
