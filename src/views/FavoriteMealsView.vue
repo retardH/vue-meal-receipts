@@ -13,5 +13,8 @@ const {favoriteMeals} = storeToRefs(useMealStore);
     <div class="grid grid-cols-12 gap-6">
       <ReceiptCard v-for="(meal, index) in favoriteMeals" :key="index" :meal-info="meal"/>
     </div>
+    <div style="" class="flex items-center text-3xl font-bold text-red-700">
+      {{useMealStore.favoriteMealsCount === 0 ? `Currently,There's no favorite meals you've selected...` : ''}}
+    </div>
   </MainContainer>
 </template>

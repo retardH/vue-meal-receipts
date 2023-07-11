@@ -11,11 +11,12 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 max-w-md shadow-lg bg-stone-100 rounded-md px-2 py-4 col-span-3">
+  <div
+      class="flex flex-col gap-4 max-w-md shadow-lg bg-stone-100 rounded-md px-2 py-4 col-span-12 md:col-span-4 xl:col-span-3 self-center">
     <img :src="mealInfo.strMealThumb" alt="meal" class="w-full rounded-md">
-    <div class="flex items-center justify-between px-4 pb-4 text-rose-700">
-      <p class="">
-       {{mealInfo.strMeal.length > 22 ? `${mealInfo.strMeal.slice(0,22)}...` : mealInfo.strMeal}}
+    <div class="flex items-center justify-between px-4 text-rose-700">
+      <p class="flex-1">
+       {{mealInfo.strMeal.length > 24 ? `${mealInfo.strMeal.slice(0,24)}...` : mealInfo.strMeal}}
       </p>
       <button @click="useMealStore.toggleFavorite(mealInfo)">
         <HeartOutline v-if="!useMealStore.isMealFavorite(mealInfo)"/>

@@ -5,5 +5,9 @@
 @tailwind utilities;
 
 html {
-    font-family: 'Work Sans', sans-serif;
+    /*font-family: 'Work Sans', sans-serif;*/
+}
+
+body {
+    background-color: #fafaf9;
 }

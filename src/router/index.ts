@@ -32,7 +32,13 @@ const router = createRouter({
       name: 'categories',
       component: CategoryView,
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 })
 
 export default router

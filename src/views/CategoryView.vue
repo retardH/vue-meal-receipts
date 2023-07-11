@@ -14,7 +14,9 @@ onMounted(() => {
   <MainContainer>
     <div class="flex flex-col gap-6 w-full">
       <h4 class="text-4xl text-rose-700 font-bold uppercase">~Categories</h4>
-      <div v-for="(c, index) in categories" :key="index" class="flex items-start gap-4 bg-stone-100 shadow-md p-6">
+      <div v-for="(c, index) in categories" :key="index"
+           class="flex items-start gap-4 bg-stone-100 shadow-md p-6 cursor-pointer hover:shadow-lg"
+           @click="useMealStore.getAllMealsByCategory(c.strCategory)">
         <img :src="c.strCategoryThumb" alt=""/>
         <div class="flex-1 flex flex-col gap-3">
           <h4 class="font-bold text-2xl text-rose-700">{{c.strCategory}}</h4>
