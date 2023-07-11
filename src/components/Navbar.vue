@@ -10,7 +10,7 @@ const route = useRoute();
 
 <template>
   <nav
-      class=" items-center flex flex-row px-4 md:px-8 backdrop-blur-lg py-6 mb-12 sticky top-0 border-b-rose-500 border-b-2 z-50">
+      class=" items-center flex flex-row px-4 md:px-8 backdrop-blur-lg py-4 mb-12 sticky top-0 border-b-rose-500 border-b-2 z-50">
     <h4 class="text-2xl lg:text-3xl text-rose-700 font-bold">Shloot~Shloot</h4>
     <MenuIcon class="mr-2 text-rose-700 md:hidden ml-auto"/>
     <ul class="flex-row items-center gap-8 ml-auto hidden md:flex">
