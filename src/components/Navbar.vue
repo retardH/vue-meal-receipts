@@ -59,7 +59,6 @@ const navbarItems: routeItems[] = [
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </div> -->
-
     <i
       class="fa-solid text-xl fa-bars mr-2 text-rose-700 md:hidden ml-auto cursor-pointer"
       @click="menuClickHandler"

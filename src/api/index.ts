@@ -1,3 +1,7 @@
-export const domainUrl = 'https://www.themealdb.com/api/json/v1/1';
+import axios from "axios";
+export const domainUrl = "https://www.themealdb.com/api/json/v1/1";
 
-export const allCategoriesUrl = `${domainUrl}/categories.php`;
+export const axiosInstance = axios.create({
+  baseURL: domainUrl,
+  timeout: 100000,
+});

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import "../css/mealDetail.css";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useMeal } from "@/stores/meals";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
@@ -16,14 +15,13 @@ onMounted(() => {
   console.log(route.params.id);
   useMealStore.getMealDetails(route.params.id);
 });
-const youtubeUrl = ref("https://www.youtube.com/embed/");
 const youtubeUrlWithId = computed(() => {
   if (mealDetails.value.strYoutube) {
     let index = mealDetails.value.strYoutube?.lastIndexOf("=");
     console.log(mealDetails.value.strYoutube);
     console.log(index);
     return (
-      youtubeUrl.value +
+      "https://www.youtube.com/embed/" +
       mealDetails.value.strYoutube.slice(
         index + 1,
         mealDetails.value.strYoutube.length
@@ -36,7 +34,7 @@ const youtubeUrlWithId = computed(() => {
 
 <template>
   <MainLayout>
-    <div class="w-full flex flex-col gap-1" v-if="!useLoadingStore.isLoading">
+    <div class="w-full flex flex-col gap-1">
       <div class="flex-1">
         <button
           class="bg-rose-700 text-stone-100 flex-1 flex-grow-0 flex-shrink-0 py-2 px-5 text-base rounded-sm mb-2 flex items-center gap-1"
@@ -84,7 +82,7 @@ const youtubeUrlWithId = computed(() => {
               <p
                 v-for="(ingredient, index) in useMealStore.mealIngredients"
                 :key="index"
-                class="text-sm capitalize border-rose-700 border-2 rounded-xl py-1 px-4"
+                class="text-sm capitalize border-rose-700 border-2 rounded-2xl py-1 px-4"
               >
                 #{{ ingredient }}
               </p>
@@ -111,3 +109,23 @@ const youtubeUrlWithId = computed(() => {
     </div>
   </MainLayout>
 </template>
+
+<style scoped>
+.detail-img:hover .detail-text {
+  opacity: 1 !important;
+}
+
+.detail-img:hover .detail-text-overlay {
+  opacity: 0.4 !important;
+}
+
+.detail-text {
+  opacity: 0 !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.detail-text-overlay {
+  opacity: 0 !important;
+  transition: all 0.3s ease-in-out;
+}
+</style>
