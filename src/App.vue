@@ -15,7 +15,6 @@ const scrollToTop = () => {
 </script>
 
 <template>
-  <Navbar/>
   <RouterView />
   <div class="fixed bottom-5 right-5">
     <UpArrowIcon :size="50" @click="scrollToTop" class="text-rose-700"/>

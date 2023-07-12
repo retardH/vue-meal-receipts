@@ -8,7 +8,7 @@ const useMealStore = useMeal();
   <Carousel :autoplay="5000" :wrap-around="true">
     <Slide v-for="(c, index) in useMealStore.carouselMeals" :key="index">
       <div
-        class="flex items-center w-full justify-center carousel__item h-[300px] relative"
+        class="flex items-center w-full md:w-auto justify-center carousel__item h-[300px] relative"
       >
         <img
           :src="c.strMealThumb"

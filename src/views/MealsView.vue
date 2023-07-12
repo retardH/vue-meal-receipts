@@ -6,6 +6,7 @@ import ReceiptCard from "@/components/ReceiptCard.vue";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 import MealCarousel from "@/components/MealCarousel.vue";
+import MainLayout from "@/components/MainLayout.vue";
 const useMealStore = useMeal();
 const { searchedMeals, searchMeal, allAreas } = storeToRefs(useMealStore);
 onMounted(() => {
@@ -18,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <MainContainer>
+  <MainLayout>
     <div class="w-full mb-14">
       <MealCarousel />
     </div>
@@ -64,5 +65,5 @@ onMounted(() => {
         :meal-info="meal"
       />
     </div>
-  </MainContainer>
+  </MainLayout>
 </template>

@@ -12,7 +12,7 @@ defineProps<{
 
 <template>
   <div
-    class="flex flex-col gap-4 max-w-md shadow-lg bg-stone-100 rounded-sm px-2 py-4 col-span-12 md:col-span-4 2xl:col-span-3 self-center"
+    class="flex flex-col gap-4 max-w-md shadow-lg bg-stone-100 rounded-sm px-2 py-4 col-span-full md:col-span-4 2xl:col-span-3 self-center"
   >
     <img :src="mealInfo.strMealThumb" alt="meal" class="w-full rounded-sm" />
     <div class="flex items-center justify-between px-4 text-rose-700">

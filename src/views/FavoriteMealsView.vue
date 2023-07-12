@@ -3,18 +3,19 @@ import MainContainer from "@/components/MainContainer.vue";
 import ReceiptCard from "@/components/ReceiptCard.vue";
 import {useMeal} from "@/stores/meals";
 import {storeToRefs} from "pinia";
+import MainLayout from "@/components/MainLayout.vue";
 const useMealStore = useMeal();
 const {favoriteMeals} = storeToRefs(useMealStore);
 </script>
 
 <template>
-  <MainContainer>
-    <h2 class="text-4xl text-rose-700 uppercase font-bold mb-6">~Your Favorite Meals</h2>
-    <div class="grid grid-cols-12 gap-6">
+  <MainLayout>
+    <h2 class="text-2xl md:text-3xl text-rose-700 uppercase font-bold mb-2">~Your Favorite Meals</h2>
+    <div class="grid grid-cols-12 gap-6" style="justify-items: center; justify-content: center">
       <ReceiptCard v-for="(meal, index) in favoriteMeals" :key="index" :meal-info="meal"/>
     </div>
     <div style="" class="flex items-center text-3xl font-bold text-red-700">
       {{useMealStore.favoriteMealsCount === 0 ? `Currently,There's no favorite meals you've selected...` : ''}}
     </div>
-  </MainContainer>
+  </MainLayout>
 </template>
