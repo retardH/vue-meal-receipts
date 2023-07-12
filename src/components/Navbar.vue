@@ -1,25 +1,28 @@
 <script setup lang="ts">
 import Router from "@/router";
 import { useMeal } from "@/stores/meals";
-import { computed, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import MenuIcon from "vue-material-design-icons/Menu.vue";
 import { useRoute } from "vue-router";
 const useMealStore = useMeal();
 const route = useRoute();
 const isMenuClicked = ref(true);
-const menuClassName = ref("");
+const menuClassName = ref("fixed w-0 top-0 bottom-0 flex items-center justify-center -right-80 transition-all z-50 bg-stone-900");
 const computedClassName = computed(() => {
-  if (!isMenuClicked) {
-    return "fixed w-0 top-0 bottom-0 flex items-center justify-center -right-80 transition-all z-50 bg-stone-900";
-  } else if (isMenuClicked) {
-    return "fixed w-11/12 top-0 bottom-0 h-screen items-center justify-center right-0 transition-all z-50 bg-stone-900";
-  }
+  return isMenuClicked ?
+      "fixed w-11/12 top-0 bottom-0 h-screen items-center justify-center -right-80 transition-all z-50 bg-stone-900" :
+      "fixed w-0 top-0 bottom-0 flex items-center h-screen justify-center -right-80 transition-all z-50 bg-stone-900";
+
 });
 const menuClickHandler = () => {
-  isMenuClicked.value = !isMenuClicked.value;
+  menuClassName.value =
+      "fixed w-11/12 top-0 bottom-0 h-screen items-center justify-center right-0 transition-all z-50 bg-stone-900";
   console.log(isMenuClicked.value);
   console.log(computedClassName);
 };
+onMounted(() => {
+  console.log(computedClassName);
+})
 </script>
 
 <template>
@@ -66,42 +69,42 @@ const menuClickHandler = () => {
         </span>
       </li>
     </ul>
-    <div :class="computedClassName">
-      <ul class="flex-col items-center justify-center py-24 gap-14 text-center">
-        <li
-          class="text-rose-700 cursor-pointer"
-          @click="Router.push('/')"
-          :class="{ 'font-bold': route.path === '/' }"
-        >
-          Home
-        </li>
-        <li
-          class="text-rose-700 cursor-pointer"
-          @click="Router.push('/meals')"
-          :class="{ 'font-bold': route.path === '/meals' }"
-        >
-          Meals
-        </li>
-        <li
-          class="text-rose-700 cursor-pointer"
-          @click="Router.push('/categories')"
-          :class="{ 'font-bold': route.path === '/categories' }"
-        >
-          Categories
-        </li>
-        <li
-          class="text-rose-700 relative cursor-pointer"
-          @click="Router.push('/favorite')"
-          :class="{ 'font-bold': route.path === '/favorite' }"
-        >
-          Favorite
-          <span
-            class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
-          >
-            {{ useMealStore.favoriteMealsCount }}
-          </span>
-        </li>
-      </ul>
-    </div>
   </nav>
+  <!--    <div :class="menuClassName">-->
+  <!--      <ul class="flex-col items-center justify-center py-24 gap-14 text-center">-->
+  <!--        <li-->
+  <!--          class="text-rose-700 cursor-pointer"-->
+  <!--          @click="Router.push('/')"-->
+  <!--          :class="{ 'font-bold': route.path === '/' }"-->
+  <!--        >-->
+  <!--          Home-->
+  <!--        </li>-->
+  <!--        <li-->
+  <!--          class="text-rose-700 cursor-pointer"-->
+  <!--          @click="Router.push('/meals')"-->
+  <!--          :class="{ 'font-bold': route.path === '/meals' }"-->
+  <!--        >-->
+  <!--          Meals-->
+  <!--        </li>-->
+  <!--        <li-->
+  <!--          class="text-rose-700 cursor-pointer"-->
+  <!--          @click="Router.push('/categories')"-->
+  <!--          :class="{ 'font-bold': route.path === '/categories' }"-->
+  <!--        >-->
+  <!--          Categories-->
+  <!--        </li>-->
+  <!--        <li-->
+  <!--          class="text-rose-700 relative cursor-pointer"-->
+  <!--          @click="Router.push('/favorite')"-->
+  <!--          :class="{ 'font-bold': route.path === '/favorite' }"-->
+  <!--        >-->
+  <!--          Favorite-->
+  <!--          <span-->
+  <!--            class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"-->
+  <!--          >-->
+  <!--            {{ useMealStore.favoriteMealsCount }}-->
+  <!--          </span>-->
+  <!--        </li>-->
+  <!--      </ul>-->
+  <!--    </div>-->
 </template>
