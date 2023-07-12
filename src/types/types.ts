@@ -5,6 +5,11 @@ export interface MealCategory {
     strCategoryDescription: string
 }
 
+export interface routeItems {
+    name: string
+    path: string,
+    hasBadge: boolean,
+}
 export interface Meal {
     idMeal: string;
     strMeal: string;

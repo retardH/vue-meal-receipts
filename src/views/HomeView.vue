@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import MainContainer from "@/components/MainContainer.vue";
 import RightArrow from "vue-material-design-icons/ArrowRightThin.vue"
 import MainLayout from "@/components/MainLayout.vue";
 </script>

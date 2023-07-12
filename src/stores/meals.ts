@@ -3,6 +3,7 @@ import type {Meal, MealCategory} from "@/types/types";
 import {domainUrl, allCategoriesUrl} from "@/api"
 import {useLoadingState} from "@/stores/loading";
 import Router from "@/router";
+
 export const useMeal = defineStore("meal", {
     state: () => ({
         searchedMeals: <Meal[]>[],
@@ -11,14 +12,15 @@ export const useMeal = defineStore("meal", {
         mealDetails: <Meal>{},
         categories: <MealCategory[]>[],
         selectedCountry: "American",
-        allAreas: [] as {strArea: string}[],
+        allAreas: [] as { strArea: string }[],
         resultText: "",
+        selectedIngredient: "",
     }),
     getters: {
         mealIngredients(state: any) {
             let ingredients: string[] = [];
-            for(let i=1; i<=20; i++) {
-                if(state.mealDetails[`strIngredient${i}`]) {
+            for (let i = 1; i <= 20; i++) {
+                if (state.mealDetails[`strIngredient${i}`]) {
                     ingredients.push(state.mealDetails[`strIngredient${i}`]);
                 }
             }
@@ -28,7 +30,13 @@ export const useMeal = defineStore("meal", {
             return state.favoriteMeals.length;
         },
         carouselMeals(state: any) {
-            return state.searchedMeals.slice(0,10);
+            return state.searchedMeals.slice(0, 10);
+        },
+        formatSelectedIngredient(state: any) {
+            if (state.selectedIngredient.includes('_')) {
+                return state.selectedIngredient.split('_').join(' ');
+            }
+            return state.selectedIngredient;
         }
     },
     actions: {
@@ -38,7 +46,7 @@ export const useMeal = defineStore("meal", {
             this.searchedMeals = [];
             try {
                 let response;
-                if(this.searchMeal.length === 1) {
+                if (this.searchMeal.length === 1) {
                     response = await fetch(`${domainUrl}/search.php?f=${this.searchMeal.toLowerCase()}`);
                 } else {
                     response = await fetch(`${domainUrl}/search.php?s=${this.searchMeal}`);
@@ -59,7 +67,7 @@ export const useMeal = defineStore("meal", {
             this.searchedMeals = [];
             const response = await fetch(`${domainUrl}/filter.php?c=${category}`);
             const data = await response.json();
-            if(data.meals) {
+            if (data.meals) {
                 this.searchedMeals = data.meals;
                 await Router.push('/meals');
             }
@@ -68,20 +76,19 @@ export const useMeal = defineStore("meal", {
         },
         async getMealDetails(id: number) {
             const useLoadingStore = useLoadingState();
-            useLoadingStore.isLoading = true;
-            let loader = useLoadingStore.vueLoading.show();
+            let loader = useLoadingStore.initializeLoading();
             this.mealDetails = {};
             const response = await fetch(`${domainUrl}/lookup.php?i=${id}`);
             const data = await response.json();
             useLoadingStore.isLoading = false;
             loader.hide();
-            if(data.meals) {
+            if (data.meals) {
                 this.mealDetails = data.meals[0];
 
             }
         },
         toggleFavorite(meal: Meal) {
-            if(!this.isMealFavorite(meal)) {
+            if (!this.isMealFavorite(meal)) {
                 this.favoriteMeals.push(meal);
             } else {
                 this.favoriteMeals = this.favoriteMeals.filter((favMeal: Meal) => favMeal.idMeal !== meal.idMeal);
@@ -97,8 +104,7 @@ export const useMeal = defineStore("meal", {
         },
         async getMealsByCountry() {
             const useLoadingStore = useLoadingState();
-            useLoadingStore.isLoading = true;
-            let loader = useLoadingStore.vueLoading.show();
+            let loader = useLoadingStore.initializeLoading();
             this.searchedMeals = [];
             const response = await fetch(`${domainUrl}/filter.php?a=${this.selectedCountry}`);
             const data = await response.json();
@@ -107,6 +113,16 @@ export const useMeal = defineStore("meal", {
             this.searchedMeals = data.meals;
             this.resultText = `${this.selectedCountry} Foods:`;
             this.selectedCountry = "";
+        },
+        async getMealsByIngredient() {
+            const useLoadingStore = useLoadingState();
+            const loader = useLoadingStore.initializeLoading();
+            const response = await fetch(`${domainUrl}/filter.php?i=${this.selectedIngredient}`);
+            const data = await response.json();
+            useLoadingStore.isLoading = false;
+            loader.hide();
+            this.searchedMeals = data.meals;
+            this.resultText = `Meals with ${this.formatSelectedIngredient} as Main Ingredient:`;
         },
         async getAllList() {
             const response = await fetch(`${domainUrl}/list.php?a=list`);

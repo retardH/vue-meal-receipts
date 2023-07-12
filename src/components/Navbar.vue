@@ -1,114 +1,96 @@
 <script setup lang="ts">
 import Router from "@/router";
 import { useMeal } from "@/stores/meals";
-import {computed, onMounted, ref} from "vue";
+import {ref} from "vue";
 import MenuIcon from "vue-material-design-icons/Menu.vue";
-import CloseIcon from "vue-material-design-icons/Close.vue";
+import FoodIcon from "vue-material-design-icons/FoodVariant.vue";
+import SearchIcon from "vue-material-design-icons/Magnify.vue";
 import { useRoute } from "vue-router";
+import MobileNavbar from "@/components/MobileNavbar.vue";
+import type {routeItems} from "@/types/types";
+import {storeToRefs} from "pinia";
 const useMealStore = useMeal();
+const {searchMeal} = storeToRefs(useMealStore);
 const route = useRoute();
 const isMenuClicked = ref(false);
-const menuClassName = ref("fixed w-0 top-0 bottom-0 flex items-center justify-center -right-80 transition-all z-50 bg-stone-900");
+const menuClassName =
+    ref("fixed w-0 top-0 bottom-0 flex items-center justify-center -right-80 transition-all z-40 bg-stone-900");
 const closeMenu = () => {
   isMenuClicked.value = false;
   menuClassName.value =
-      "fixed w-0 top-0 bottom-0 flex items-center h-screen justify-center -right-80 transition-all z-50 bg-stone-900";
+      "fixed w-0 top-0 bottom-0 flex items-center h-screen justify-center -right-80 transition-all z-40 bg-stone-900";
 }
 const menuClickHandler = () => {
   isMenuClicked.value = true;
   menuClassName.value =
-      "fixed w-10/12 top-0 bottom-0 h-screen items-center justify-center right-0 transition-all z-50 bg-stone-900";
+      "fixed w-10/12 top-0 bottom-0 h-screen items-center justify-center right-0 transition-all z-40 bg-stone-900";
 };
-
+const navbarItems: routeItems[] = [
+  {
+    name: "Home",
+    path: "/",
+    hasBadge: false,
+  },
+  {
+    name: "Meals",
+    path: "/meals",
+    hasBadge: false,
+  },
+  {
+    name: "Categories",
+    path: "/categories",
+    hasBadge: false,
+  }
+]
 </script>
 
 <template>
   <nav
-    class="items-center flex flex-row px-4 md:px-8 backdrop-blur-lg py-4 mb-12 sticky top-0 border-b-rose-500 border-b-2 z-40"
+    class="items-center flex flex-row px-4 md:px-8 backdrop-blur-xl py-4 mb-8 md:mb-12 sticky top-0 border-b-rose-500 border-b-2 z-30"
   >
     <h4 class="text-2xl lg:text-3xl text-rose-700 font-bold">Shloot~Shloot</h4>
+          <div class="flex items-center ml-auto border-stone-950 border-2">
+            <input
+                type="text"
+                placeholder="Search receipts..."
+                v-model="searchMeal"
+                @keydown.enter="useMealStore.getAllInfo()"
+                class="py-2 px-4 rounded-sm bg-stone-50 text-rose-700 placeholder-rose-700 w-auto md:w-64 focus:outline-0 focus:ring-0"
+            />
+            <button
+                class="py-2 px-4 bg-stone-50"
+                @click="useMealStore.getAllInfo()"
+            >
+              <SearchIcon />
+            </button>
+          </div>
     <MenuIcon
       class="mr-2 text-rose-700 md:hidden ml-auto"
       @click="menuClickHandler"
     />
     <ul class="flex-row items-center gap-8 ml-auto hidden md:flex">
-      <li
-        class="text-rose-700 cursor-pointer"
-        @click="Router.push('/')"
-        :class="{ 'font-bold': route.path === '/' }"
-        style="transition: all 300ms ease-in-out;"
-      >
-        Home
-      </li>
-      <li
-        class="text-rose-700 cursor-pointer"
-        @click="Router.push('/meals')"
-        :class="{ 'font-bold': route.path === '/meals' }"
-        style="transition: all 300ms ease-in-out;"
-      >
-        Meals
-      </li>
-      <li
-        class="text-rose-700 cursor-pointer"
-        @click="Router.push('/categories')"
-        :class="{ 'font-bold': route.path === '/categories' }"
-        style="transition: all 300ms ease-in-out;"
-      >
-        Categories
-      </li>
-      <li
-        class="text-rose-700 relative cursor-pointer"
-        @click="Router.push('/favorite')"
-        :class="{ 'font-bold': route.path === '/favorite' }"
-        style="transition: all 300ms ease-in-out;"
-      >
-        Favorite
+      <li v-for="link in navbarItems" :key="link.path" class="text-rose-700 cursor-pointer" @click="Router.push(link.path)"
+          :class="{'font-bold': route.path === link.path, 'relative': link.hasBadge}" style="transition: all 300ms
+          ease-in-out;">
+        {{link.name}}
         <span
-          class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
+            v-if="link.hasBadge"
+            class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
         >
           {{ useMealStore.favoriteMealsCount }}
         </span>
       </li>
     </ul>
+    <button class="flex relative items-center justify-center ml-4 md:ml-8 mb-1.5 text-rose-700"
+            @click="Router.push('/favorite')">
+      <FoodIcon :size="30"/>
+      <span
+          class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
+      >
+          {{ useMealStore.favoriteMealsCount }}
+        </span>
+    </button>
   </nav>
-      <div :class="menuClassName" style="transition: all 300ms ease-in-out">
-        <button class="absolute top-5 right-5" @click="closeMenu">
-          <CloseIcon size="30" class="text-rose-700"/>
-        </button>
-        <ul class="flex-col items-center justify-center py-24 space-y-6 text-center">
-          <li
-            class="text-rose-700 cursor-pointer flex-grow-0 flex-1 flex-shrink-0"
-            @click="Router.push('/')"
-            :class="{ 'font-bold': route.path === '/', 'hidden': !isMenuClicked }"
-          >
-            Home
-          </li>
-          <li
-            class="text-rose-700 cursor-pointer"
-            @click="Router.push('/meals')"
-            :class="{ 'font-bold': route.path === '/meals', 'hidden': !isMenuClicked }"
-          >
-            Meals
-          </li>
-          <li
-            class="text-rose-700 cursor-pointer"
-            @click="Router.push('/categories')"
-            :class="{ 'font-bold': route.path === '/categories', 'hidden': !isMenuClicked }"
-          >
-            Categories
-          </li>
-          <li
-            class="text-rose-700 relative cursor-pointer"
-            @click="Router.push('/favorite')"
-            :class="{ 'font-bold': route.path === '/favorite', 'hidden': !isMenuClicked }"
-          >
-            Favorite
-            <span
-              class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
-            >
-              {{ useMealStore.favoriteMealsCount }}
-            </span>
-          </li>
-        </ul>
-      </div>
+  <MobileNavbar :menu-class-name="menuClassName" :close-menu="closeMenu" :is-menu-clicked="isMenuClicked"
+                :navbar-items="navbarItems"/>
 </template>

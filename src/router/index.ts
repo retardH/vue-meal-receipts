@@ -36,7 +36,6 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
     });
   }
 })
