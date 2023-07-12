@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import SearchIcon from "vue-material-design-icons/Magnify.vue";
 import { useMeal } from "@/stores/meals";
 import ReceiptCard from "@/components/ReceiptCard.vue";
 import { storeToRefs } from "pinia";
@@ -26,22 +25,22 @@ onMounted(() => {
     <div
       class="flex items-center md:items-start justify-between mb-12 mx-auto flex-col gap-2.5 md:flex-row"
     >
-<!--      <div class="flex items-center border-stone-950 border-2">-->
-<!--        <input-->
-<!--            type="text"-->
-<!--            placeholder="Search receipts..."-->
-<!--            v-model="searchMeal"-->
-<!--            @keydown.enter="useMealStore.getAllInfo()"-->
-<!--            class="py-2 px-4 rounded-sm bg-stone-50 text-rose-700 placeholder-rose-700 w-auto md:w-64 focus:outline-0 focus:ring-0"-->
-<!--        />-->
-<!--        <button-->
-<!--            class="py-2 px-4 bg-stone-50"-->
-<!--            @click="useMealStore.getAllInfo()"-->
-<!--        >-->
-<!--          <SearchIcon />-->
-<!--        </button>-->
-<!--      </div>-->
-      <IngredientsFilter/>
+      <!--      <div class="flex items-center border-stone-950 border-2">-->
+      <!--        <input-->
+      <!--            type="text"-->
+      <!--            placeholder="Search receipts..."-->
+      <!--            v-model="searchMeal"-->
+      <!--            @keydown.enter="useMealStore.getAllInfo()"-->
+      <!--            class="py-2 px-4 rounded-sm bg-stone-50 text-rose-700 placeholder-rose-700 w-auto md:w-64 focus:outline-0 focus:ring-0"-->
+      <!--        />-->
+      <!--        <button-->
+      <!--            class="py-2 px-4 bg-stone-50"-->
+      <!--            @click="useMealStore.getAllInfo()"-->
+      <!--        >-->
+      <!--          <SearchIcon />-->
+      <!--        </button>-->
+      <!--      </div>-->
+      <IngredientsFilter />
       <select
         v-model="useMealStore.selectedCountry"
         @change="useMealStore.getMealsByCountry()"
@@ -52,9 +51,10 @@ onMounted(() => {
           {{ c.strArea }}
         </option>
       </select>
-
     </div>
-    <h4 class="text-xl md:text-2xl text-red-700 mb-1 tracking-wider text-center uppercase">
+    <h4
+      class="text-xl md:text-2xl text-red-700 mb-1 tracking-wider text-center uppercase"
+    >
       {{ useMealStore.resultText }}
     </h4>
     <Divider />

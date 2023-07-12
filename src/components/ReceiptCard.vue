@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { Meal } from "@/types/types";
-import HeartOutline from "vue-material-design-icons/HeartOutline.vue";
-import HeartFilled from "vue-material-design-icons/Heart.vue";
 import Router from "@/router";
 import { useMeal } from "@/stores/meals";
 const useMealStore = useMeal();
@@ -24,8 +22,14 @@ defineProps<{
         }}
       </p>
       <button @click="useMealStore.toggleFavorite(mealInfo)">
-        <HeartOutline v-if="!useMealStore.isMealFavorite(mealInfo)" />
-        <HeartFilled v-if="useMealStore.isMealFavorite(mealInfo)" />
+        <i
+          v-if="!useMealStore.isMealFavorite(mealInfo)"
+          class="fa-regular fa-heart text-lg"
+        ></i>
+        <i
+          v-if="useMealStore.isMealFavorite(mealInfo)"
+          class="fa-solid fa-heart text-lg"
+        ></i>
       </button>
     </div>
     <button

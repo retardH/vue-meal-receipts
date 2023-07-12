@@ -3,7 +3,6 @@ import {useMeal} from "@/stores/meals";
 import {storeToRefs} from "pinia";
 import {onMounted} from "vue";
 import MainLayout from "@/components/MainLayout.vue";
-import SearchIcon from "vue-material-design-icons/Magnify.vue";
 import Divider from "@/components/Divider.vue";
 const useMealStore = useMeal();
 const {categories} = storeToRefs(useMealStore);
@@ -27,7 +26,7 @@ onMounted(() => {
           <button class="ml-auto bg-rose-700 flex items-center gap-2 mt-2 text-stone-100 py-2 px-2 rounded-sm"
                   @click="useMealStore.getAllMealsByCategory(c.strCategory)"
           >
-            Meals for {{c.strCategory}}<SearchIcon/>
+            Meals for {{c.strCategory}}<i class="fa-solid fa-magnifying-glass text-lg"></i>
           </button>
         </div>
       </div>
