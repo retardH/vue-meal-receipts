@@ -82,7 +82,7 @@ const youtubeUrlWithId = computed(() => {
               <p
                 v-for="(ingredient, index) in useMealStore.mealIngredients"
                 :key="index"
-                class="text-sm capitalize border-rose-700 border-2 rounded-2xl py-1 px-4"
+                class="text-sm capitalize border-rose-700 border-[1.4px] rounded-2xl py-1 px-4"
               >
                 #{{ ingredient }}
               </p>

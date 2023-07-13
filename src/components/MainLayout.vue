@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/Navbar.vue";
 import MainContainer from "@/components/MainContainer.vue";
+import Footer from "@/components/Footer.vue";
 </script>
 
 <template>
@@ -10,5 +11,6 @@ import MainContainer from "@/components/MainContainer.vue";
     <MainContainer>
       <slot/>
     </MainContainer>
+<!--    <Footer/>-->
   </main>
 </template>

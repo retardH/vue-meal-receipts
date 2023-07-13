@@ -11,7 +11,7 @@ const useMealStore = useMeal();
 const { searchedMeals, searchMeal, allAreas } = storeToRefs(useMealStore);
 onMounted(() => {
   useMealStore.getAllList();
-  if (useMealStore.searchedMeals.length <= 0) {
+  if (searchedMeals.value.length <= 0) {
     useMealStore.getMealsByCountry();
   }
 });
@@ -44,7 +44,7 @@ onMounted(() => {
       <select
         v-model="useMealStore.selectedCountry"
         @change="useMealStore.getMealsByCountry()"
-        class="py-2 px-1 h-[43.62px] bg-stone-50 border-stone-950 border-2 focus:ring-0 focus:outline-0 text-rose-700"
+        class="py-2 px-1 h-[43.62px] bg-stone-50 border-stone-950 border-[1px] focus:ring-0 focus:outline-0 text-rose-700"
       >
         <option disabled value="">Search by your area</option>
         <option v-for="(c, index) in allAreas" :key="index">

@@ -1,27 +1,22 @@
 <script setup lang="ts">
 import Router from "@/router";
 import { useMeal } from "@/stores/meals";
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import { useRoute } from "vue-router";
 import MobileNavbar from "@/components/MobileNavbar.vue";
 import type { routeItems } from "@/types/types";
+import {gsap} from "gsap";
 import { storeToRefs } from "pinia";
 const useMealStore = useMeal();
-const { searchMeal } = storeToRefs(useMealStore);
+const { searchMeal, favoriteMealsCount } = storeToRefs(useMealStore);
 const route = useRoute();
 const isMenuClicked = ref(false);
-const menuClassName = ref(
-  "fixed w-0 top-0 bottom-0 flex items-center justify-center -right-80 transition-all z-40 bg-stone-900"
-);
+const fav = ref(null);
 const closeMenu = () => {
   isMenuClicked.value = false;
-  menuClassName.value =
-    "fixed w-0 top-0 bottom-0 flex items-center h-screen justify-center -right-80 transition-all z-40 bg-stone-900";
 };
 const menuClickHandler = () => {
   isMenuClicked.value = true;
-  menuClassName.value =
-    "fixed w-10/12 top-0 bottom-0 h-screen items-center justify-center right-0 transition-all z-40 bg-stone-900";
 };
 const navbarItems: routeItems[] = [
   {
@@ -40,6 +35,28 @@ const navbarItems: routeItems[] = [
     hasBadge: false,
   },
 ];
+watch(favoriteMealsCount, () => {
+    console.log('count changed');
+    gsap.fromTo(fav.value, {
+      rotate: -12,
+      duration: .2,
+      yoyo: true,
+    }, {
+      duration: .2,
+      yoyo: true,
+      repeat: 2,
+      rotate: 12,
+      scale: 1.125,
+      onComplete: () => {
+        gsap.to(fav.value, {
+          rotate: 0,
+          duration: .1,
+          scale: 1,
+        });
+      }
+    })
+
+})
 </script>
 
 <template>
@@ -47,7 +64,7 @@ const navbarItems: routeItems[] = [
     class="items-center flex flex-row px-4 md:px-8 backdrop-blur-xl py-4 mb-8 md:mb-12 sticky top-0 border-b-rose-500 border-b-2 z-30"
   >
     <h4 class="text-2xl lg:text-3xl text-rose-700 font-bold">Shloot~Shloot</h4>
-    <!-- <div class="flex items-center ml-auto border-stone-950 border-2">
+     <div v-if="route.path === '/meals'" class="hidden md:flex items-center ml-auto border-stone-950 border-[1px]">
       <input
         type="text"
         placeholder="Search receipts..."
@@ -58,11 +75,7 @@ const navbarItems: routeItems[] = [
       <button class="py-2 px-4 bg-stone-50" @click="useMealStore.getAllInfo()">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
-    </div> -->
-    <i
-      class="fa-solid text-xl fa-bars mr-2 text-rose-700 md:hidden ml-auto cursor-pointer"
-      @click="menuClickHandler"
-    ></i>
+    </div>
     <ul class="flex-row items-center gap-8 ml-auto hidden md:flex">
       <li
         v-for="link in navbarItems"
@@ -84,21 +97,23 @@ const navbarItems: routeItems[] = [
         </span>
       </li>
     </ul>
-    <button
-      class="flex relative items-center justify-center ml-4 mt-1 md:ml-8 mb-1.5 text-rose-700"
+    <button ref="fav"
+      class="flex relative items-center justify-center ml-auto md:ml-8 mt-1 mb-1.5 text-rose-700"
       @click="Router.push('/favorite')"
     >
-      <!-- <FoodIcon :size="30" /> -->
-      <i class="fa-solid fa-bowl-food text-xl"></i>
+      <i class="fa-solid fa-utensils text-xl"></i>
       <span
-        class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
+        class="absolute -top-[6px] -right-3 bg-rose-700 text-stone-100 text-xs w-4 h-4 flex items-center justify-center rounded-full"
       >
-        {{ useMealStore.favoriteMealsCount }}
+        {{ favoriteMealsCount }}
       </span>
     </button>
+    <i
+        class="fa-solid text-xl fa-bars mr-2 text-rose-700 ml-8 md:hidden cursor-pointer"
+        @click="menuClickHandler"
+    ></i>
   </nav>
   <MobileNavbar
-    :menu-class-name="menuClassName"
     :close-menu="closeMenu"
     :is-menu-clicked="isMenuClicked"
     :navbar-items="navbarItems"

@@ -14,7 +14,7 @@ defineProps<{
   >
     <img :src="mealInfo.strMealThumb" alt="meal" class="w-full rounded-sm" />
     <div class="flex items-center justify-between px-4 text-rose-700">
-      <p class="flex-1 text-base">
+      <p class="flex-1 text-xl md:text-lg xl:text-base">
         {{
           mealInfo.strMeal.length > 24
             ? `${mealInfo.strMeal.slice(0, 24)}...`
