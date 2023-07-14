@@ -55,8 +55,8 @@ watch(favoriteMealsCount, () => {
         });
       }
     })
-
 })
+
 </script>
 
 <template>

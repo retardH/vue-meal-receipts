@@ -4,7 +4,6 @@ import {useMeal} from "@/stores/meals";
 import {storeToRefs} from "pinia";
 import MainLayout from "@/components/MainLayout.vue";
 import Divider from "@/components/Divider.vue";
-
 const useMealStore = useMeal();
 const {favoriteMeals} = storeToRefs(useMealStore);
 </script>
