@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Meal } from "@/types/types";
+import Button from "@/components/Button.vue";
 import Router from "@/router";
 import { useMeal } from "@/stores/meals";
 const useMealStore = useMeal();
@@ -32,11 +33,13 @@ defineProps<{
         ></i>
       </button>
     </div>
-    <button
-      class="bg-rose-700 text-white py-3 px-5"
+    <Button
+      style-class="bg-rose-700 rounded-sm"
       @click="Router.push(`/meal/${mealInfo.idMeal}`)"
     >
-      See Detail
-    </button>
+      <template #text>
+        Detail
+      </template>
+    </Button>
   </div>
 </template>

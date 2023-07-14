@@ -4,12 +4,25 @@ import {useMeal} from "@/stores/meals";
 import {storeToRefs} from "pinia";
 import MainLayout from "@/components/MainLayout.vue";
 import Divider from "@/components/Divider.vue";
+import Router from "@/router";
+import Button from "@/components/Button.vue";
 const useMealStore = useMeal();
 const {favoriteMeals} = storeToRefs(useMealStore);
 </script>
 
 <template>
   <MainLayout>
+    <Button
+        style-class="bg-rose-700 flex-1 flex-grow-0 flex-shrink-0 mb-2 flex items-center gap-1"
+        @click="Router.go(-1)"
+    >
+      <template #leftIcon>
+        <i class="fa-solid fa-arrow-left text-lg"></i>
+      </template>
+      <template #text>
+        Back
+      </template>
+    </Button>
     <h2 class="text-2xl md:text-3xl text-rose-700 uppercase font-bold mb-2">~Your Favorite Meals</h2>
     <Divider/>
     <transition name="switch" mode="out-in">

@@ -15,7 +15,7 @@ const fav = ref(null);
 const closeMenu = () => {
   isMenuClicked.value = false;
 };
-const menuClickHandler = () => {
+const openMenu = () => {
   isMenuClicked.value = true;
 };
 const navbarItems: routeItems[] = [
@@ -36,7 +36,6 @@ const navbarItems: routeItems[] = [
   },
 ];
 watch(favoriteMealsCount, () => {
-    console.log('count changed');
     gsap.fromTo(fav.value, {
       rotate: -12,
       duration: .2,
@@ -110,7 +109,7 @@ watch(favoriteMealsCount, () => {
     </button>
     <i
         class="fa-solid text-xl fa-bars mr-2 text-rose-700 ml-8 md:hidden cursor-pointer"
-        @click="menuClickHandler"
+        @click="openMenu"
     ></i>
   </nav>
   <MobileNavbar

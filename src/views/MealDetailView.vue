@@ -6,6 +6,7 @@ import { useRoute } from "vue-router";
 import { useLoadingState } from "@/stores/loading";
 import MainLayout from "@/components/MainLayout.vue";
 import Divider from "@/components/Divider.vue";
+import Button from "@/components/Button.vue";
 import Router from "@/router";
 const useMealStore = useMeal();
 const useLoadingStore = useLoadingState();
@@ -36,12 +37,17 @@ const youtubeUrlWithId = computed(() => {
   <MainLayout>
     <div class="w-full flex flex-col gap-1">
       <div class="flex-1">
-        <button
-          class="bg-rose-700 text-stone-100 flex-1 flex-grow-0 flex-shrink-0 py-2 px-5 text-base rounded-sm mb-2 flex items-center gap-1"
+        <Button
+          style-class="bg-rose-700 flex-1 flex-grow-0 flex-shrink-0 mb-2 flex items-center gap-1"
           @click="Router.push('/meals')"
         >
-          <i class="fa-solid fa-arrow-left text-lg"></i>Back
-        </button>
+          <template #leftIcon>
+            <i class="fa-solid fa-arrow-left text-lg"></i>
+          </template>
+          <template #text>
+            Back
+          </template>
+        </Button>
       </div>
       <h4 class="text-2xl md:text-3xl text-rose-700 font-bold">
         ~{{ mealDetails.strMeal }}

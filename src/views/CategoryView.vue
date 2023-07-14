@@ -4,6 +4,7 @@ import {storeToRefs} from "pinia";
 import {onMounted} from "vue";
 import MainLayout from "@/components/MainLayout.vue";
 import Divider from "@/components/Divider.vue";
+import Button from "@/components/Button.vue";
 const useMealStore = useMeal();
 const {categories} = storeToRefs(useMealStore);
 onMounted(() => {
@@ -23,11 +24,16 @@ onMounted(() => {
         <div class="flex-1 flex flex-col gap-3">
           <h4 class="font-bold text-2xl text-rose-700">{{c.strCategory}}</h4>
           <p class="text-lg text-rose-700">{{ c.strCategoryDescription }}</p>
-          <button class="ml-auto bg-rose-700 flex items-center gap-2 mt-2 text-stone-100 py-2 px-2 rounded-sm"
+          <Button style-class="ml-auto bg-rose-700 flex items-center gap-2 mt-2 rounded-sm"
                   @click="useMealStore.getAllMealsByCategory(c.strCategory)"
           >
-            Meals for {{c.strCategory}}<i class="fa-solid fa-magnifying-glass text-lg"></i>
-          </button>
+            <template #text>
+              Meals for {{c.strCategory}}
+            </template>
+            <template #rightIcon>
+              <i class="fa-solid fa-magnifying-glass text-lg"></i>
+            </template>
+          </Button>
         </div>
       </div>
     </div>

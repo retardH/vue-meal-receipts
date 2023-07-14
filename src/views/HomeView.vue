@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MainLayout from "@/components/MainLayout.vue";
+import Button from "@/components/Button.vue";
 </script>
 
 <template>
@@ -16,10 +17,14 @@ import MainLayout from "@/components/MainLayout.vue";
       <p class="text-base md:text-lg text-rose-600 text-center">
         Here, you can search for various meal receipts and ingredients.
       </p>
-      <button class="bg-rose-700 text-white py-3 px-4 flex items-center gap-2">
-        <router-link to="/meals"> Let's find meals! </router-link>
-        <i class="fa-solid fa-arrow-right text-lg"></i>
-      </button>
+      <Button style-class="bg-rose-700 flex items-center gap-2">
+        <template #text>
+          <router-link to="/meals"> Let's find meals! </router-link>
+        </template>
+        <template #rightIcon>
+          <i class="fa-solid fa-arrow-right text-lg"></i>
+        </template>
+      </Button>
     </div>
   </MainLayout>
 </template>
