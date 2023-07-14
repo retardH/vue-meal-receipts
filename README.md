@@ -1,4 +1,4 @@
-# Shloot~Shloot(ရှလွတ်ရှလွတ်) Meals Receipts App
+# Shloot~Shloot(ရှလွတ်ရှလွတ်) Meals Receipts Website
 
 ## Features
 
