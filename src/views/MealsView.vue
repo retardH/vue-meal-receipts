@@ -19,27 +19,27 @@ onMounted(() => {
 
 <template>
   <MainLayout>
-    <div class="w-full mb-14">
+<!--    <div class="flex md:hidden items-center border-stone-950 border-2">-->
+<!--      <input-->
+<!--          type="text"-->
+<!--          placeholder="Search receipts..."-->
+<!--          v-model="searchMeal"-->
+<!--          @keydown.enter="useMealStore.getAllInfo()"-->
+<!--          class="py-2 px-4 rounded-sm bg-stone-50 text-rose-700 placeholder-rose-700 w-auto md:w-64 focus:outline-0 focus:ring-0"-->
+<!--      />-->
+<!--      <button-->
+<!--          class="py-2 px-4 bg-stone-50"-->
+<!--          @click="useMealStore.getAllInfo()"-->
+<!--      >-->
+<!--        <SearchIcon />-->
+<!--      </button>-->
+<!--    </div>-->
+    <div v-if="searchedMeals" class="w-full mb-14">
       <MealCarousel />
     </div>
     <div
       class="flex items-center md:items-start justify-between mb-12 mx-auto flex-col gap-2.5 md:flex-row"
     >
-      <!--      <div class="flex items-center border-stone-950 border-2">-->
-      <!--        <input-->
-      <!--            type="text"-->
-      <!--            placeholder="Search receipts..."-->
-      <!--            v-model="searchMeal"-->
-      <!--            @keydown.enter="useMealStore.getAllInfo()"-->
-      <!--            class="py-2 px-4 rounded-sm bg-stone-50 text-rose-700 placeholder-rose-700 w-auto md:w-64 focus:outline-0 focus:ring-0"-->
-      <!--        />-->
-      <!--        <button-->
-      <!--            class="py-2 px-4 bg-stone-50"-->
-      <!--            @click="useMealStore.getAllInfo()"-->
-      <!--        >-->
-      <!--          <SearchIcon />-->
-      <!--        </button>-->
-      <!--      </div>-->
       <IngredientsFilter />
       <select
         v-model="useMealStore.selectedCountry"

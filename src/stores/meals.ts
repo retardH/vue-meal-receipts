@@ -62,11 +62,11 @@ export const useMeal = defineStore("meal", {
         this.resultText = `${this.searchedMeals.length} ${
           this.searchedMeals.length > 1 ? "Results" : "Result"
         } found for '${this.searchMeal}'`;
-        this.searchMeal = "";
       } catch (error) {
         console.log(error);
         this.resultText = `No Result Found!`;
       }
+      this.searchMeal = "";
     },
     async getAllMealsByCategory(category: string) {
       this.searchedMeals = [];
