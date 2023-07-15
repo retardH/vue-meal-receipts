@@ -86,12 +86,16 @@ export const useMeal = defineStore("meal", {
       const useLoadingStore = useLoadingState();
       let loader = useLoadingStore.initializeLoading();
       this.mealDetails = {};
-      const response = await axiosInstance.get(`/lookup.php?i=${id}`);
-      const data = await response.data;
-      useLoadingStore.isLoading = false;
-      loader.hide();
-      if (data.meals) {
-        this.mealDetails = data.meals[0];
+      try {
+        const response = await axiosInstance.get(`/lookup.php?i=${id}`);
+        const data = await response.data;
+        useLoadingStore.isLoading = false;
+        loader.hide();
+        if (data.meals) {
+          this.mealDetails = data.meals[0];
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     toggleFavorite(meal: Meal) {
@@ -108,41 +112,53 @@ export const useMeal = defineStore("meal", {
     },
     async getCategories() {
       let data;
-      if (this.categories.length === 0) {
-        const useLoadingStore = useLoadingState();
-        let loader = useLoadingStore.initializeLoading();
-        const response = await axiosInstance.get(`/categories.php`);
-        data = await response.data;
-        useLoadingStore.isLoading = false;
-        loader.hide();
-        this.categories = data.categories;
+      try {
+        if (this.categories.length === 0) {
+          const useLoadingStore = useLoadingState();
+          let loader = useLoadingStore.initializeLoading();
+          const response = await axiosInstance.get(`/categories.php`);
+          data = await response.data;
+          useLoadingStore.isLoading = false;
+          loader.hide();
+          this.categories = data.categories;
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     async getMealsByCountry() {
       const useLoadingStore = useLoadingState();
       let loader = useLoadingStore.initializeLoading();
       this.searchedMeals = [];
-      const response = await axiosInstance.get(
-        `/filter.php?a=${this.selectedCountry}`
-      );
-      const data = await response.data;
-      useLoadingStore.isLoading = false;
-      loader.hide();
-      this.searchedMeals = data.meals;
-      this.resultText = `${this.selectedCountry} Foods:`;
-      this.selectedCountry = "";
+      try {
+        const response = await axiosInstance.get(
+            `/filter.php?a=${this.selectedCountry}`
+        );
+        const data = await response.data;
+        useLoadingStore.isLoading = false;
+        loader.hide();
+        this.searchedMeals = data.meals;
+        this.resultText = `${this.selectedCountry} Foods:`;
+        this.selectedCountry = "";
+      } catch (error) {
+        console.log(error);
+      }
     },
     async getMealsByIngredient() {
       const useLoadingStore = useLoadingState();
       const loader = useLoadingStore.initializeLoading();
-      const response = await axiosInstance.get(
-        `/filter.php?i=${this.selectedIngredient}`
-      );
-      const data = await response.data;
-      useLoadingStore.isLoading = false;
-      loader.hide();
-      this.searchedMeals = data.meals;
-      this.resultText = `Meals with ${this.formatSelectedIngredient} as Main Ingredient:`;
+      try {
+        const response = await axiosInstance.get(
+            `/filter.php?i=${this.selectedIngredient}`
+        );
+        const data = await response.data;
+        useLoadingStore.isLoading = false;
+        loader.hide();
+        this.searchedMeals = data.meals;
+        this.resultText = `Meals with ${this.formatSelectedIngredient} as Main Ingredient:`;
+      } catch (error) {
+        console.log(error);
+      }
     },
     async getAllList() {
       const response = await axiosInstance.get(`/list.php?a=list`);
