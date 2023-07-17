@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import Router from "@/router";
-import { useMeal } from "@/stores/meals";
+import {useMeal} from "@/stores/meals";
 import {ref, watch} from "vue";
-import { useRoute } from "vue-router";
+import {useRoute} from "vue-router";
 import MobileNavbar from "@/components/MobileNavbar.vue";
-import type { routeItems } from "@/types/types";
+import type {routeItems} from "@/types/types";
 import {gsap} from "gsap";
-import { storeToRefs } from "pinia";
+import {storeToRefs} from "pinia";
+// @ts-ignore
+import {useI18n} from "vue-i18n";
+
 const useMealStore = useMeal();
-const { searchMeal, favoriteMealsCount } = storeToRefs(useMealStore);
+const {searchMeal, favoriteMealsCount} = storeToRefs(useMealStore);
 const route = useRoute();
 const isMenuClicked = ref(false);
 const fav = ref(null);
+const {t, locale, availableLocales} = useI18n();
 const closeMenu = () => {
   isMenuClicked.value = false;
 };
@@ -36,41 +40,40 @@ const navbarItems: routeItems[] = [
   },
 ];
 watch(favoriteMealsCount, () => {
-    gsap.fromTo(fav.value, {
-      rotate: -12,
-      duration: .2,
-      yoyo: true,
-    }, {
-      duration: .2,
-      yoyo: true,
-      repeat: 2,
-      rotate: 12,
-      scale: 1.125,
-      onComplete: () => {
-        gsap.to(fav.value, {
-          rotate: 0,
-          duration: .1,
-          scale: 1,
-        });
-      }
-    })
+  gsap.fromTo(fav.value, {
+    rotate: -12,
+    duration: .2,
+    yoyo: true,
+  }, {
+    duration: .2,
+    yoyo: true,
+    repeat: 2,
+    rotate: 12,
+    scale: 1.125,
+    onComplete: () => {
+      gsap.to(fav.value, {
+        rotate: 0,
+        duration: .1,
+        scale: 1,
+      });
+    }
+  })
 })
 
 </script>
 
 <template>
   <nav
-    class="items-center flex flex-row px-4 md:px-8 backdrop-blur-xl py-4 mb-8 md:mb-12 sticky top-0 border-b-rose-500 border-b-2 z-30"
+      class="items-center flex flex-row px-4 md:px-8 backdrop-blur-xl py-4 mb-8 md:mb-12 sticky top-0 border-b-rose-500 border-b-2 z-30"
   >
     <h4 class="text-2xl lg:text-3xl text-rose-700 font-bold mr-auto">Shloot~Shloot</h4>
-<!--    <h4>{{$tc(`Pluralization.favourites`, favoriteMealsCount)}}</h4>-->
-     <div v-if="route.path === '/meals'" class="hidden md:flex items-center ml-auto border-stone-950 border-[1px]">
+    <div v-if="route.path === '/meals'" class="hidden md:flex items-center ml-auto border-stone-950 border-[1px]">
       <input
-        type="text"
-        placeholder="Search receipts..."
-        v-model="searchMeal"
-        @keydown.enter="useMealStore.getAllInfo()"
-        class="py-2 px-4 rounded-sm bg-stone-50 text-rose-700 placeholder-rose-700 w-auto md:w-64 focus:outline-0 focus:ring-0"
+          type="text"
+          placeholder="Search receipts..."
+          v-model="searchMeal"
+          @keydown.enter="useMealStore.getAllInfo()"
+          class="py-2 px-4 rounded-sm bg-stone-50 text-rose-700 placeholder-rose-700 w-auto md:w-64 focus:outline-0 focus:ring-0"
       />
       <button class="py-2 px-4 bg-stone-50" @click="useMealStore.getAllInfo()">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -89,20 +92,20 @@ watch(favoriteMealsCount, () => {
     </button>
     <ul class="flex-row items-center gap-8 ml-8 hidden md:flex">
       <li
-        v-for="link in navbarItems"
-        :key="link.path"
-        class="text-rose-700 cursor-pointer"
-        @click="Router.push(link.path)"
-        :class="{
+          v-for="link in navbarItems"
+          :key="link.path"
+          class="text-rose-700 cursor-pointer"
+          @click="Router.push(link.path)"
+          :class="{
           'font-bold': route.path === link.path,
           relative: link.hasBadge,
         }"
-        style="transition: all 300ms ease-in-out"
+          style="transition: all 300ms ease-in-out"
       >
-        {{ $t(`Navbar.${link.name}`) }}
+        {{ t(`Navbar.${link.name}`) }}
         <span
-          v-if="link.hasBadge"
-          class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
+            v-if="link.hasBadge"
+            class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
         >
           {{ useMealStore.favoriteMealsCount }}
         </span>
@@ -113,13 +116,15 @@ watch(favoriteMealsCount, () => {
         class="fa-solid text-xl fa-bars mr-2 text-rose-700 ml-8 md:hidden cursor-pointer"
         @click="openMenu"
     ></i>
-    <select v-model="$i18n.locale" class="ml-8">
-      <option v-for="locale in $i18n.availableLocales" :value="locale" :key="locale">{{locale}}</option>
+    <select v-model="locale"
+            class="py-1 ml-8 px-1.5 bg-stone-50 border-stone-950 border-[1px] focus:ring-0 focus:outline-0 text-rose-700"
+    >
+      <option v-for="locale in availableLocales" :value="locale" :key="locale">{{ locale }}</option>
     </select>
   </nav>
   <MobileNavbar
-    :close-menu="closeMenu"
-    :is-menu-clicked="isMenuClicked"
-    :navbar-items="navbarItems"
+      :close-menu="closeMenu"
+      :is-menu-clicked="isMenuClicked"
+      :navbar-items="navbarItems"
   />
 </template>
