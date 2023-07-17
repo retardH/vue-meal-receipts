@@ -134,7 +134,7 @@ watch(favoriteMealsCount, () => {
   />
 </template>
 
-<style>
+<style scoped>
 .nav-link-bar {
   position: absolute;
   left: 0;
