@@ -8,6 +8,9 @@ import Router from "@/router";
 import Button from "@/components/Button.vue";
 const useMealStore = useMeal();
 const {favoriteMeals} = storeToRefs(useMealStore);
+const localFavoriteMeals = JSON.parse(<string>localStorage.getItem('favoriteMeals'));
+console.log(localFavoriteMeals);
+console.log(favoriteMeals);
 </script>
 
 <template>

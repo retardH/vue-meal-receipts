@@ -101,10 +101,12 @@ export const useMeal = defineStore("meal", {
     toggleFavorite(meal: Meal) {
       if (!this.isMealFavorite(meal)) {
         this.favoriteMeals.push(meal);
+        localStorage.setItem("favoriteMeals", JSON.stringify(this.favoriteMeals));
       } else {
         this.favoriteMeals = this.favoriteMeals.filter(
           (favMeal: Meal) => favMeal.idMeal !== meal.idMeal
         );
+        localStorage.setItem("favoriteMeals", JSON.stringify(this.favoriteMeals));
       }
     },
     isMealFavorite(meal: Meal) {
