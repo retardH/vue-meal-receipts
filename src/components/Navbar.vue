@@ -20,17 +20,17 @@ const openMenu = () => {
 };
 const navbarItems: routeItems[] = [
   {
-    name: "Home",
+    name: 'home',
     path: "/",
     hasBadge: false,
   },
   {
-    name: "Meals",
+    name: 'meals',
     path: "/meals",
     hasBadge: false,
   },
   {
-    name: "Categories",
+    name: "categories",
     path: "/categories",
     hasBadge: false,
   },
@@ -62,7 +62,8 @@ watch(favoriteMealsCount, () => {
   <nav
     class="items-center flex flex-row px-4 md:px-8 backdrop-blur-xl py-4 mb-8 md:mb-12 sticky top-0 border-b-rose-500 border-b-2 z-30"
   >
-    <h4 class="text-2xl lg:text-3xl text-rose-700 font-bold">Shloot~Shloot</h4>
+    <h4 class="text-2xl lg:text-3xl text-rose-700 font-bold mr-auto">Shloot~Shloot</h4>
+<!--    <h4>{{$tc(`Pluralization.favourites`, favoriteMealsCount)}}</h4>-->
      <div v-if="route.path === '/meals'" class="hidden md:flex items-center ml-auto border-stone-950 border-[1px]">
       <input
         type="text"
@@ -75,7 +76,18 @@ watch(favoriteMealsCount, () => {
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </div>
-    <ul class="flex-row items-center gap-8 ml-auto hidden md:flex">
+    <button ref="fav"
+            class="flex relative items-center justify-center ml-auto md:ml-8 mt-1 mb-1.5 text-rose-700"
+            @click="Router.push('/favorite')"
+    >
+      <i class="fa-solid fa-utensils text-xl"></i>
+      <span
+          class="absolute -top-[6px] -right-3 bg-rose-700 text-stone-100 text-xs w-4 h-4 flex items-center justify-center rounded-full"
+      >
+        {{ favoriteMealsCount }}
+      </span>
+    </button>
+    <ul class="flex-row items-center gap-8 ml-8 hidden md:flex">
       <li
         v-for="link in navbarItems"
         :key="link.path"
@@ -87,7 +99,7 @@ watch(favoriteMealsCount, () => {
         }"
         style="transition: all 300ms ease-in-out"
       >
-        {{ link.name }}
+        {{ $t(`Navbar.${link.name}`) }}
         <span
           v-if="link.hasBadge"
           class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
@@ -96,21 +108,14 @@ watch(favoriteMealsCount, () => {
         </span>
       </li>
     </ul>
-    <button ref="fav"
-      class="flex relative items-center justify-center ml-auto md:ml-8 mt-1 mb-1.5 text-rose-700"
-      @click="Router.push('/favorite')"
-    >
-      <i class="fa-solid fa-utensils text-xl"></i>
-      <span
-        class="absolute -top-[6px] -right-3 bg-rose-700 text-stone-100 text-xs w-4 h-4 flex items-center justify-center rounded-full"
-      >
-        {{ favoriteMealsCount }}
-      </span>
-    </button>
+
     <i
         class="fa-solid text-xl fa-bars mr-2 text-rose-700 ml-8 md:hidden cursor-pointer"
         @click="openMenu"
     ></i>
+    <select v-model="$i18n.locale" class="ml-8">
+      <option v-for="locale in $i18n.availableLocales" :value="locale" :key="locale">{{locale}}</option>
+    </select>
   </nav>
   <MobileNavbar
     :close-menu="closeMenu"

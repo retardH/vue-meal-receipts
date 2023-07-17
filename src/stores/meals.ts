@@ -106,6 +106,7 @@ export const useMeal = defineStore("meal", {
           (favMeal: Meal) => favMeal.idMeal !== meal.idMeal
         );
       }
+      localStorage.setItem('favoriteMeals', JSON.stringify(this.favoriteMeals));
     },
     isMealFavorite(meal: Meal) {
       return this.favoriteMeals.includes(meal);

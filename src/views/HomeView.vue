@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import MainLayout from "@/components/MainLayout.vue";
-import Button from "@/components/Button.vue";
-</script>
-
 <template>
   <MainLayout>
     <div
@@ -25,6 +20,13 @@ import Button from "@/components/Button.vue";
           <i class="fa-solid fa-arrow-right text-lg"></i>
         </template>
       </Button>
+      <hr/>
+      <hr/>
     </div>
   </MainLayout>
 </template>
+
+<script setup lang="ts">
+import MainLayout from "@/components/MainLayout.vue";
+import Button from "@/components/Button.vue";
+</script>
