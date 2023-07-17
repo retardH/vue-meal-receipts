@@ -34,7 +34,7 @@ onMounted(() => {
 <!--        <SearchIcon />-->
 <!--      </button>-->
 <!--    </div>-->
-    <div v-if="searchedMeals" class="w-full mb-14">
+    <div v-if="searchedMeals && searchedMeals.length > 0" class="w-full mb-14">
       <MealCarousel />
     </div>
     <div

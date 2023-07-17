@@ -40,10 +40,14 @@ export const useMeal = defineStore("meal", {
     },
   },
   actions: {
+    clearPreviousState() {
+      this.searchedMeals = "";
+      this.resultText = "";
+    },
     async getAllInfo() {
       const useLoadingStore = useLoadingState();
       let loader = useLoadingStore.initializeLoading();
-      this.searchedMeals = [];
+      this.clearPreviousState();
       try {
         let response;
         if (this.searchMeal.length === 1) {
@@ -69,7 +73,7 @@ export const useMeal = defineStore("meal", {
       this.searchMeal = "";
     },
     async getAllMealsByCategory(category: string) {
-      this.searchedMeals = [];
+      this.clearPreviousState();
       const useLoadingStore = useLoadingState();
       let loader = useLoadingStore.initializeLoading();
       const response = await axiosInstance.get(`/filter.php?c=${category}`);
@@ -131,7 +135,7 @@ export const useMeal = defineStore("meal", {
     async getMealsByCountry() {
       const useLoadingStore = useLoadingState();
       let loader = useLoadingStore.initializeLoading();
-      this.searchedMeals = [];
+      this.clearPreviousState();
       try {
         const response = await axiosInstance.get(
             `/filter.php?a=${this.selectedCountry}`
@@ -149,6 +153,7 @@ export const useMeal = defineStore("meal", {
     async getMealsByIngredient() {
       const useLoadingStore = useLoadingState();
       const loader = useLoadingStore.initializeLoading();
+      this.clearPreviousState();
       try {
         const response = await axiosInstance.get(
             `/filter.php?i=${this.selectedIngredient}`

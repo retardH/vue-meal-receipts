@@ -94,7 +94,7 @@ watch(favoriteMealsCount, () => {
       <li
           v-for="link in navbarItems"
           :key="link.path"
-          class="text-rose-700 cursor-pointer"
+          class="text-rose-700 cursor-pointer relative group nav-link py-2"
           @click="Router.push(link.path)"
           :class="{
           'font-bold': route.path === link.path,
@@ -104,14 +104,19 @@ watch(favoriteMealsCount, () => {
       >
         {{ t(`Navbar.${link.name}`) }}
         <span
+            class="absolute bottom-1 left-0 w-0 h-[3px] bg-red-700 duration-300 group-hover:w-full group-hover:transition-all"
+        >
+
+        </span>
+        <span
             v-if="link.hasBadge"
-            class="absolute -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
+            class="absolute nav-link -top-2 -right-3 bg-rose-700 text-stone-100 text-sm w-5 h-5 flex items-center justify-center rounded-full"
         >
           {{ useMealStore.favoriteMealsCount }}
         </span>
+
       </li>
     </ul>
-
     <i
         class="fa-solid text-xl fa-bars mr-2 text-rose-700 ml-8 md:hidden cursor-pointer"
         @click="openMenu"
@@ -128,3 +133,20 @@ watch(favoriteMealsCount, () => {
       :navbar-items="navbarItems"
   />
 </template>
+
+<style>
+.nav-link-bar {
+  position: absolute;
+  left: 0;
+  width: 0;
+  bottom: 3px;
+  height: 3px;
+  background-color: red;
+
+}
+
+.nav-link:hover .nav-link-bar, .active-nav-link {
+  width: 100%;
+  transition: all 1000ms ease-in-out;
+}
+</style>
