@@ -3,7 +3,6 @@ import type { Meal, MealCategory } from "@/types/types";
 import { axiosInstance } from "@/api";
 import { useLoadingState } from "@/stores/loading";
 import Router from "@/router";
-
 export const useMeal = defineStore("meal", {
   state: () => ({
     searchedMeals: <Meal[]>[],
@@ -173,4 +172,5 @@ export const useMeal = defineStore("meal", {
       this.allAreas = data.meals;
     },
   },
+  persist: true,
 });

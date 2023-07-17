@@ -47,7 +47,6 @@ console.log(favoriteMeals);
 <style>
 .fav-leave-to {
   opacity: 0;
-  transform: translateX(-100%);
 }
 
 .fav-leave-active {
@@ -59,10 +58,10 @@ console.log(favoriteMeals);
   opacity: 0;
 }
 .switch-enter-active{
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 .switch-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 </style>
