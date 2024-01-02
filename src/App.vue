@@ -3,6 +3,8 @@ import { RouterView } from "vue-router";
 import "./style.css";
 import "vue-loading-overlay/dist/css/index.css";
 import "vue3-carousel/dist/carousel.css";
+import { initFlowbite } from "flowbite";
+import { onMounted } from "vue";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -10,6 +12,10 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
+
+onMounted(() => {
+  initFlowbite();
+})
 </script>
 
 <template>

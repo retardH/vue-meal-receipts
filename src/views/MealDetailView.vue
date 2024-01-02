@@ -1,28 +1,27 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
-import { useMeal } from "@/stores/meals";
-import { storeToRefs } from "pinia";
-import { useRoute } from "vue-router";
-import { useLoadingState } from "@/stores/loading";
-import MainLayout from "@/components/MainLayout.vue";
-import Divider from "@/components/Divider.vue";
-import Button from "@/components/Button.vue";
-import Router from "@/router";
+import { computed, onMounted } from 'vue';
+import { useMeal } from '@/stores/meals';
+import { storeToRefs } from 'pinia';
+import { useRoute } from 'vue-router';
+import { useLoadingState } from '@/stores/loading';
+import MainLayout from '@/components/MainLayout.vue';
+import Divider from '@/components/Divider.vue';
+import Button from '@/components/Button.vue';
+import Router from '@/router';
 const useMealStore = useMeal();
 const useLoadingStore = useLoadingState();
 const { mealDetails } = storeToRefs(useMealStore);
 const route = useRoute();
 onMounted(() => {
-  console.log(route.params.id);
   useMealStore.getMealDetails(route.params.id);
 });
 const youtubeUrlWithId = computed(() => {
   if (mealDetails.value.strYoutube) {
-    let index = mealDetails.value.strYoutube?.lastIndexOf("=");
+    let index = mealDetails.value.strYoutube?.lastIndexOf('=');
     console.log(mealDetails.value.strYoutube);
     console.log(index);
     return (
-      "https://www.youtube.com/embed/" +
+      'https://www.youtube.com/embed/' +
       mealDetails.value.strYoutube.slice(
         index + 1,
         mealDetails.value.strYoutube.length
@@ -35,22 +34,22 @@ const youtubeUrlWithId = computed(() => {
 
 <template>
   <MainLayout>
-    <div class="w-full flex flex-col gap-1">
-      <div class="flex-1">
+    <div v-if="!useLoadingStore.isLoading" class="w-full flex flex-col gap-1">
+      <div class="flex-1 mb-2">
         <Button
-          style-class="bg-rose-700 flex-1 flex-grow-0 flex-shrink-0 mb-2 flex items-center gap-1"
+          style-class="bg-rose-600 flex-1 px-8 rounded-sm flex-grow-0 flex-shrink-0 mb-2 flex items-center gap-1"
           @click="Router.push('/meals')"
         >
           <template #leftIcon>
             <i class="fa-solid fa-arrow-left text-lg"></i>
           </template>
-          <template #text>
-            Back
-          </template>
+          <template #text> Back </template>
         </Button>
       </div>
-      <h4 class="text-2xl md:text-3xl text-rose-700 font-bold">
-        ~{{ mealDetails.strMeal }}
+      <h4
+        class="text-2xl md:text-3xl text-rose-600 tracking-wide font-semibold"
+      >
+        {{ mealDetails.strMeal }}
       </h4>
       <Divider />
       <div class="flex items-start flex-col md:flex-row gap-6 pb-2">
@@ -63,14 +62,14 @@ const youtubeUrlWithId = computed(() => {
             <div
               class="flex-col flex items-center justify-center absolute inset-0 w-full h-full flex-1 mt-2.5 z-30 detail-text"
             >
-              <p class="text-stone-100 text-lg font-bold">
+              <p class="text-stone-100 text-lg font-semibold">
                 {{
                   mealDetails.strTags
                     ? `Tags: ${mealDetails.strTags}`
-                    : "No Tags"
+                    : 'No Tags'
                 }}
               </p>
-              <p class="text-stone-100 text-lg font-bold my-2">
+              <p class="text-stone-100 text-lg font-semibold my-2">
                 {{
                   mealDetails.strCategory &&
                   `Categories: ${mealDetails.strCategory}`
@@ -81,8 +80,10 @@ const youtubeUrlWithId = computed(() => {
         </div>
         <div class="flex flex-col gap-8 w-full md:w-8/12">
           <div class="flex gap-1 flex-1 items-start flex-col">
-            <p class="text-lg uppercase font-bold text-rose-700">
-              Ingredients:
+            <p
+              class="text-lg uppercase font-semibold text-rose-600 tracking-wide mb-2"
+            >
+              Ingredients
             </p>
             <div class="flex items-center gap-2.5 flex-wrap">
               <p
@@ -90,15 +91,17 @@ const youtubeUrlWithId = computed(() => {
                 :key="index"
                 class="text-sm capitalize border-rose-700 border-[1.4px] rounded-2xl py-1 px-4"
               >
-                #{{ ingredient }}
+                {{ ingredient }}
               </p>
             </div>
           </div>
           <div>
-            <p class="text-lg font-bold text-rose-700 uppercase">
-              Instructions:
+            <p
+              class="text-lg font-semibold text-rose-600 tracking-wide uppercase mb-2"
+            >
+              Instructions
             </p>
-            <p class="text-base leading-6 tracking-normal">
+            <p class="text-base leading-7 tracking-normal">
               {{ mealDetails.strInstructions }}
             </p>
           </div>

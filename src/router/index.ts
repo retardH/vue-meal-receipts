@@ -1,16 +1,16 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import MealsView from "@/views/MealsView.vue";
-import MealsDetailView from  "@/views/MealDetailView.vue";
-import FavoriteMeals from "@/views/FavoriteMealsView.vue";
-import CategoryView from "@/views/CategoryView.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import MealsView from '@/views/MealsView.vue';
+import MealsDetailView from '@/views/MealDetailView.vue';
+import FavoriteMeals from '@/views/FavoriteMealsView.vue';
+import CategoryView from '@/views/CategoryView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/meals',
@@ -31,13 +31,13 @@ const router = createRouter({
       path: '/categories',
       name: 'categories',
       component: CategoryView,
-    }
+    },
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     window.scrollTo({
       top: 0,
     });
-  }
-})
+  },
+});
 
-export default router
+export default router;

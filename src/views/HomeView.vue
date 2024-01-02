@@ -12,7 +12,7 @@
       <p class="text-base md:text-lg text-rose-600 text-center">
         Here, you can search for various meal receipts and ingredients.
       </p>
-      <Button style-class="bg-rose-700 flex items-center gap-2">
+      <Button style-class="bg-rose-600 rounded-sm flex items-center gap-2">
         <template #text>
           <router-link to="/meals"> Let's find meals! </router-link>
         </template>
@@ -20,13 +20,13 @@
           <i class="fa-solid fa-arrow-right text-lg"></i>
         </template>
       </Button>
-      <hr/>
-      <hr/>
+      <hr />
+      <hr />
     </div>
   </MainLayout>
 </template>
 
 <script setup lang="ts">
-import MainLayout from "@/components/MainLayout.vue";
-import Button from "@/components/Button.vue";
+import MainLayout from '@/components/MainLayout.vue';
+import Button from '@/components/Button.vue';
 </script>
