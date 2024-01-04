@@ -67,9 +67,9 @@ watch(favoriteMealsCount, () => {
 
 <template>
   <nav
-    class="items-center flex flex-row px-4 md:px-8 backdrop-blur-xl py-4 mb-8 md:mb-12 sticky top-0 border-b-rose-500 border-b-2 z-30"
+    class="items-center w-full bg-stone-100 mx-auto flex flex-row px-4 py-6 md:py-8 mb-4 sticky top-0 backdrop-blur-xl z-30"
   >
-    <h4 class="text-2xl lg:text-3xl text-rose-600 font-bold mr-auto">
+    <h4 class="text-2xl lg:text-3xl italic text-rose-600 font-bold mr-auto">
       Shloot~Shloot
     </h4>
     <ul class="flex-row items-center gap-8 hidden ml-auto md:flex">
@@ -86,7 +86,7 @@ watch(favoriteMealsCount, () => {
       >
         {{ t(`Navbar.${link.name}`) }}
         <span
-          class="absolute bottom-1 left-0 w-0 h-[3px] bg-red-700 duration-300 group-hover:w-full group-hover:transition-all"
+          class="absolute bottom-1 left-0 w-0 h-[3px] bg-red-600 duration-300 group-hover:w-full group-hover:transition-all"
         >
         </span>
         <span
@@ -99,7 +99,7 @@ watch(favoriteMealsCount, () => {
     </ul>
     <button
       ref="fav"
-      class="flex relative items-center justify-center mt-1 mx-8 mb-1.5"
+      class="flex relative items-center justify-center mt-1 md:mx-8 mb-1.5"
       @click="Router.push('/favorite')"
     >
       <i class="fa-solid text-rose-600 fa-utensils text-xl"></i>
@@ -109,24 +109,24 @@ watch(favoriteMealsCount, () => {
         {{ favoriteMealsCount }}
       </span>
     </button>
-    <div
+    <!-- <div
       v-if="route.path === '/meals'"
-      class="hidden md:flex items-center border-stone-950 rounded-sm border-[1px]"
+      class="hidden md:flex items-center border-stone-900 rounded-sm overflow-hidden border-[1px]"
     >
       <input
         type="text"
-        placeholder="Search here"
+        placeholder="Search meals by name"
         v-model="searchMeal"
         @keydown.enter="useMealStore.getAllInfo()"
-        class="py-2 px-4 rounded-sm bg-stone-50 border-none placeholder:text-slate-900 w-auto md:w-64 focus:outline-0 focus:ring-0"
+        class="py-2 px-4 rounded-md bg-stone-50 border-none placeholder:text-stone-700 w-auto md:w-64 focus:outline-0 focus:ring-0"
       />
       <button class="py-2 px-4 bg-stone-50" @click="useMealStore.getAllInfo()">
         <i class="fa-solid text-rose-600 fa-magnifying-glass"></i>
       </button>
-    </div>
+    </div> -->
 
     <i
-      class="fa-solid text-xl fa-bars mr-2 ml-8 md:hidden cursor-pointer"
+      class="fa-solid text-xl fa-bars md:mr-2 ml-8 md:hidden cursor-pointer"
       @click="openMenu"
     ></i>
     <!-- <select v-model="locale"

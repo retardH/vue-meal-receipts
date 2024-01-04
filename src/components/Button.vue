@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <button
-    class="text-stone-100 rounded-sm py-2 px-5 text-base hover:brightness-90 focus:brightness-100 transition-all"
+    class="text-stone-100 transition-all rounded-sm py-1 md:py-2 px-4 md:px-5 text-sm md:text-base hover:brightness-90 focus:brightness-100"
     :class="props.styleClass"
   >
     <slot name="leftIcon"></slot>

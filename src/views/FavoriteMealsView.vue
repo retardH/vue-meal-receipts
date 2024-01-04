@@ -26,7 +26,9 @@ console.log(favoriteMeals);
       </template>
       <template #text> Back </template>
     </Button>
-    <h2 class="text-2xl md:text-3xl tracking-wide uppercase font-semibold mb-2">
+    <h2
+      class="text-2xl md:text-3xl tracking-wide capitalize font-semibold mb-2"
+    >
       Your Favorite Meals
     </h2>
     <Divider />
@@ -35,7 +37,7 @@ console.log(favoriteMeals);
         <transition-group
           name="fav"
           tag="div"
-          class="grid grid-cols-12 gap-6"
+          class="grid grid-cols-12 gap-6 mt-6"
           style="justify-content: center"
         >
           <ReceiptCard
@@ -47,7 +49,7 @@ console.log(favoriteMeals);
       </div>
       <div
         v-else
-        class="flex text-center items-center justify-center mt-8 text-2xl md:text-3xl font-bold text-red-700"
+        class="flex text-center items-center justify-center mt-6 text-2xl md:text-3xl font-bold text-red-700"
       >
         Currently,There's no favorite meals you've selected...
       </div>

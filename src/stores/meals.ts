@@ -1,19 +1,19 @@
-import { defineStore } from 'pinia';
-import type { Meal, MealCategory } from '@/types/types';
-import { axiosInstance } from '@/api';
-import { useLoadingState } from '@/stores/loading';
-import Router from '@/router';
-export const useMeal = defineStore('meal', {
+import { defineStore } from "pinia";
+import type { Meal, MealCategory } from "@/types/types";
+import { axiosInstance } from "@/api";
+import { useLoadingState } from "@/stores/loading";
+import Router from "@/router";
+export const useMeal = defineStore("meal", {
   state: () => ({
     searchedMeals: <Meal[]>[],
     favoriteMeals: <Meal[]>[],
-    searchMeal: '',
+    searchMeal: "",
     mealDetails: <Meal>{},
     categories: <MealCategory[]>[],
-    selectedCountry: 'American',
+    selectedCountry: "American",
     allAreas: [] as { strArea: string }[],
-    resultText: '',
-    selectedIngredient: '',
+    resultText: "",
+    selectedIngredient: "",
   }),
   getters: {
     mealIngredients(state: any) {
@@ -32,16 +32,16 @@ export const useMeal = defineStore('meal', {
       return state.searchedMeals.slice(0, 10);
     },
     formatSelectedIngredient(state: any) {
-      if (state.selectedIngredient.includes('_')) {
-        return state.selectedIngredient.split('_').join(' ');
+      if (state.selectedIngredient.includes("_")) {
+        return state.selectedIngredient.split("_").join(" ");
       }
       return state.selectedIngredient;
     },
   },
   actions: {
     clearPreviousState() {
-      this.searchedMeals = '';
-      this.resultText = '';
+      this.searchedMeals = "";
+      this.resultText = "";
     },
     async getAllInfo() {
       const useLoadingStore = useLoadingState();
@@ -51,11 +51,11 @@ export const useMeal = defineStore('meal', {
         let response;
         if (this.searchMeal.length === 1) {
           response = await axiosInstance.get(
-            `/search.php?f=${this.searchMeal.toLowerCase()}`
+            `/search.php?f=${this.searchMeal.toLowerCase()}`,
           );
         } else {
           response = await axiosInstance.get(
-            `/search.php?s=${this.searchMeal}`
+            `/search.php?s=${this.searchMeal}`,
           );
         }
         const data = await response.data;
@@ -63,13 +63,13 @@ export const useMeal = defineStore('meal', {
         loader.hide();
         this.searchedMeals = data.meals;
         this.resultText = `${this.searchedMeals.length} ${
-          this.searchedMeals.length > 1 ? 'Results' : 'Result'
+          this.searchedMeals.length > 1 ? "Results" : "Result"
         } found for '${this.searchMeal}'`;
       } catch (error) {
         console.log(error);
         this.resultText = `No Result Found!`;
       }
-      this.searchMeal = '';
+      this.searchMeal = "";
     },
     async getAllMealsByCategory(category: string) {
       this.clearPreviousState();
@@ -79,7 +79,7 @@ export const useMeal = defineStore('meal', {
       const data = await response.data;
       if (data.meals) {
         this.searchedMeals = data.meals;
-        await Router.push('/meals');
+        await Router.push("/meals");
       }
       useLoadingStore.isLoading = false;
       loader.hide();
@@ -105,16 +105,16 @@ export const useMeal = defineStore('meal', {
       if (!this.isMealFavorite(meal)) {
         this.favoriteMeals.push(meal);
         localStorage.setItem(
-          'favoriteMeals',
-          JSON.stringify(this.favoriteMeals)
+          "favoriteMeals",
+          JSON.stringify(this.favoriteMeals),
         );
       } else {
         this.favoriteMeals = this.favoriteMeals.filter(
-          (favMeal: Meal) => favMeal.idMeal !== meal.idMeal
+          (favMeal: Meal) => favMeal.idMeal !== meal.idMeal,
         );
         localStorage.setItem(
-          'favoriteMeals',
-          JSON.stringify(this.favoriteMeals)
+          "favoriteMeals",
+          JSON.stringify(this.favoriteMeals),
         );
       }
     },
@@ -143,14 +143,14 @@ export const useMeal = defineStore('meal', {
       this.clearPreviousState();
       try {
         const response = await axiosInstance.get(
-          `/filter.php?a=${this.selectedCountry}`
+          `/filter.php?a=${this.selectedCountry}`,
         );
         const data = await response.data;
         useLoadingStore.isLoading = false;
         loader.hide();
         this.searchedMeals = data.meals;
         this.resultText = `${this.selectedCountry} Foods`;
-        this.selectedCountry = '';
+        this.selectedCountry = "";
       } catch (error) {
         console.log(error);
       }
@@ -161,7 +161,7 @@ export const useMeal = defineStore('meal', {
       this.clearPreviousState();
       try {
         const response = await axiosInstance.get(
-          `/filter.php?i=${this.selectedIngredient}`
+          `/filter.php?i=${this.selectedIngredient}`,
         );
         const data = await response.data;
         useLoadingStore.isLoading = false;

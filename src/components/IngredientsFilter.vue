@@ -92,6 +92,7 @@ watch(selectedIngredient, (newValue, oldValue) => {
           v-model="selectedIngredient"
           class="rounded-none"
         />
+
         <label :for="i.name">{{ textParser(i.name) }}</label>
       </div>
     </div>

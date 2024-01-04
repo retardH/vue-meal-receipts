@@ -5,11 +5,11 @@
       style="height: calc(80vh - 40px)"
     >
       <h4
-        class="text-3xl md:text-5xl text-center lg:text-7xl text-rose-700 font-bold"
+        class="text-3xl md:text-5xl text-center lg:text-7xl text-rose-600 font-semibold"
       >
         Welcome from `Shloot~Shloot`
       </h4>
-      <p class="text-base md:text-lg text-rose-600 text-center">
+      <p class="text-base md:text-lg text-center">
         Here, you can search for various meal receipts and ingredients.
       </p>
       <Button style-class="bg-rose-600 rounded-sm flex items-center gap-2">

@@ -11,15 +11,11 @@ defineProps<{
 
 <template>
   <div
-    class="flex flex-col gap-4 max-w-md shadow-lg bg-stone-100 rounded-sm box-border col-span-full md:col-span-4 2xl:col-span-3 self-center"
+    class="flex flex-col gap-4 max-w-md shadow-lg overflow-hidden bg-stone-50 rounded-sm box-border col-span-full md:col-span-4 lg:col-span-3 self-center"
   >
-    <img
-      :src="mealInfo.strMealThumb"
-      alt="meal"
-      class="w-full rounded-sm h-[284px]"
-    />
+    <img :src="mealInfo.strMealThumb" alt="meal" class="w-full h-[260px]" />
     <div class="flex items-center px-2 justify-between box-border">
-      <p class="flex-1 text-xl md:text-lg xl:text-base pr-2">
+      <p class="flex-1 text-base pr-2">
         {{
           mealInfo.strMeal.length > 24
             ? mealInfo.strMeal.slice(0, 24) + '...'
@@ -38,7 +34,7 @@ defineProps<{
       </button>
     </div>
     <Button
-      style-class="bg-rose-600 rounded-sm mb-3 mx-2"
+      style-class="bg-rose-600 py-2 px-5 rounded-sm mb-3 mx-2"
       @click="Router.push(`/meal/${mealInfo.idMeal}`)"
     >
       <template #text> Detail </template>
